@@ -1,9 +1,28 @@
 <% content_for :title, "New job" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New job</h1>
+<div class="min-h-screen bg-[#F8FAFC] p-10">
+  <div
+    class="
+      max-w-4xl mx-auto bg-white rounded-[24px] shadow-sm border border-[#F1F5F9] p-10
+    "
+  >
+    <div class="flex justify-between items-center mb-10">
+      <h1 class="text-4xl font-bold text-[#0F172A]">New Job Application</h1>
+      <%= link_to jobs_path, class: "text-gray-400 hover:text-gray-600" do %>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <% end %>
+    </div>
 
-  <%= render "form", job: @job %>
-
-  <%= link_to "Back to jobs", jobs_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <%= render "form", job: @job %>
+  </div>
 </div>

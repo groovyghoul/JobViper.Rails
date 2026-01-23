@@ -1,96 +1,82 @@
 <%= form_with(model: job, class: "contents") do |form| %>
-  <% if job.errors.any? %>
-    <div
-      id="error_explanation"
-      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3"
-    >
-      <h2><%= pluralize(job.errors.count, "error") %>
-        prohibited this job from being saved:</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
 
-      <ul class="list-disc ml-6">
-        <% job.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <%# Company Name %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :company, "Company Name *", class: "font-bold text-[#0F172A]" %>
+      <%= form.text_field :company,
+                      class:
+                        "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500",
+                      placeholder: "e.g. Google" %>
     </div>
-  <% end %>
 
-  <div class="my-5">
-    <%= form.label :company %>
-    <%= form.text_field :company,
-                    class: [
-                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
-                      {
-                        "border-gray-400 focus:outline-blue-600":
-                          job.errors[:company].none?,
-                        "border-red-400 focus:outline-red-600":
-                          job.errors[:company].any?,
-                      },
-                    ] %>
-  </div>
+    <%# Position %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :title, "Position *", class: "font-bold text-[#0F172A]" %>
+      <%= form.text_field :title,
+                      class:
+                        "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500",
+                      placeholder: "e.g. Software Engineer" %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title,
-                    class: [
-                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
-                      {
-                        "border-gray-400 focus:outline-blue-600":
-                          job.errors[:title].none?,
-                        "border-red-400 focus:outline-red-600":
-                          job.errors[:title].any?,
-                      },
-                    ] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :applied_date %>
-    <%= form.date_field :applied_date,
-                    value: (form.object.applied_date || Date.today),
-                    class:
-                      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full border-gray-400 focus:outline-blue-600" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.select :status,
-                [
-                  "To Apply",
-                  "Applied",
-                  "Interviewing",
-                  "Offer Received",
-                  "Accepted",
-                  "Rejected",
-                  "Ghosted",
-                ],
-                { prompt: "-- Select current stage --" },
-                {
+    <%# Status %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :status, "Status *", class: "font-bold text-[#0F172A]" %>
+      <%= form.select :status,
+                  %w[Applied Interviewing Offer Rejected],
+                  {},
                   class:
-                    "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full border-gray-400 focus:outline-blue-600",
-                } %>
+                    "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500 appearance-none" %>
+    </div>
+
+    <%# Date Applied %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :applied_date, "Date Applied *", class: "font-bold text-[#0F172A]" %>
+      <%= form.date_field :applied_date,
+                      value: Time.now.strftime("%Y-%m-%d"),
+                      class:
+                        "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500" %>
+    </div>
+
+    <%# Location %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :location, "Location", class: "font-bold text-[#0F172A]" %>
+      <%= form.text_field :location,
+                      class:
+                        "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500",
+                      placeholder: "e.g. Remote, NYC" %>
+    </div>
+
+    <%# Salary %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :salary, "Salary Range", class: "font-bold text-[#0F172A]" %>
+      <%= form.text_field :salary,
+                      class:
+                        "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500",
+                      placeholder: "e.g. $80k - $100k" %>
+    </div>
+
+    <%# Description / Notes - Full Width %>
+    <div class="flex flex-col gap-2 md:col-span-2">
+      <%= form.label :description,
+                 "Description / Notes",
+                 class: "font-bold text-[#0F172A]" %>
+      <%= form.text_area :description,
+                     rows: 4,
+                     class:
+                       "bg-[#F1F5F9] border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-500",
+                     placeholder: "Add any relevant details..." %>
+    </div>
   </div>
 
-  <div class="my-5">
-    <%= form.label :source, "Where did you find this?" %>
-    <%= form.select :source,
-                [
-                  "LinkedIn",
-                  "Indeed",
-                  "Glassdoor",
-                  "Company Website",
-                  "Referral",
-                  "Recruiter",
-                  "Other",
-                ],
-                { prompt: "-- Select source --" },
-                {
-                  class:
-                    "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full border-gray-400 focus:outline-blue-600",
-                } %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class:
-                  "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <%# Form Actions %>
+  <div class="flex justify-end gap-4 mt-10">
+    <%= link_to "Cancel",
+    jobs_path,
+    class:
+      "px-8 py-3 rounded-xl font-bold border border-[#E2E8F0] text-[#64748B] hover:bg-gray-50 transition-all" %>
+    <%= form.submit "Save Application",
+                class:
+                  "px-8 py-3 rounded-xl font-bold bg-[#020617] text-white hover:bg-black cursor-pointer shadow-sm transition-all" %>
   </div>
 <% end %>
