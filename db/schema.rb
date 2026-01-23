@@ -10,14 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_22_163059) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_013917) do
   create_table "contacts", force: :cascade do |t|
     t.string "contact_type"
     t.datetime "created_at", null: false
     t.date "date"
+    t.string "email"
     t.integer "job_id", null: false
     t.text "notes"
     t.string "person"
+    t.string "phone"
+    t.string "role"
     t.datetime "updated_at", null: false
     t.index ["job_id"], name: "index_contacts_on_job_id"
   end
@@ -26,6 +29,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_22_163059) do
     t.date "applied_date"
     t.string "company"
     t.datetime "created_at", null: false
+    t.text "description"
+    t.string "location"
+    t.string "salary"
     t.string "source"
     t.string "status"
     t.string "title"

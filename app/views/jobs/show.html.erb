@@ -1,57 +1,53 @@
-<div class="max-w-4xl mx-auto mt-10 px-4">
-  <div class="flex justify-between items-center border-b pb-4 mb-6">
-    <div>
-      <h1 class="text-3xl font-bold text-gray-900"><%= @job.title %></h1>
-      <p class="text-lg text-gray-600"><%= @job.company %></p>
+<div class="max-w-6xl mx-auto p-6">
+  <%# Top Job Info Card %>
+  <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm mb-8 relative">
+    <%= link_to "Edit", edit_job_path(@job), class: "absolute top-6 right-6 border border-gray-200 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50" %>
+
+    <div class="flex items-center gap-3 mb-2">
+      <h1 class="text-3xl font-bold"><%= @job.company %></h1>
+      <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-md capitalize"><%= @job.status %></span>
     </div>
-    <span
-      class="
-        px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800
-      "
-    >
-      <%= @job.status %>
-    </span>
+    <p class="text-gray-500 mb-6"><%= @job.title %></p>
+
+    <div class="flex gap-12 text-gray-600 text-sm">
+      <span class="flex items-center gap-2">📍 <%= @job.location %></span>
+      <span class="flex items-center gap-2">📅 Applied <%= @job.applied_date %></span>
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-    <section class="bg-white p-6 rounded-lg shadow-sm border">
-      <h2 class="text-xl font-semibold mb-4 text-indigo-700">Contact History</h2>
+  <%# Bottom Grid %>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <%# Contacts Section %>
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Contacts</h2>
+        <%= link_to "+ Add Contact", new_contact_path(job_id: @job.id), class: "bg-black text-white px-4 py-2 rounded-lg text-sm" %>
+      </div>
       <% @job.contacts.each do |contact| %>
-        <div class="mb-4 pb-2 border-b last:border-0">
-          <p class="font-medium"><%= contact.person %>
-            (<%= contact.contact_type %>)</p>
-          <p class="text-sm text-gray-500"><%= contact.date.strftime("%b %d, %Y") %></p>
-          <p class="text-sm italic mt-1 text-gray-700">"<%= contact.notes %>"</p>
+        <div class="bg-white p-6 rounded-xl border border-gray-100 mb-4 shadow-sm">
+          <h3 class="font-bold text-gray-900"><%= contact.person %></h3>
+          <p class="text-sm text-gray-500"><%= contact.notes %></p>
+          <p class="text-xs text-blue-600 mt-2">✉ <%= contact.email %></p>
         </div>
       <% end %>
-      <%= link_to "+ Add Contact",
-      new_contact_path(job_id: @job.id),
-      class: "text-sm text-indigo-600 hover:underline" %>
     </section>
 
-    <section class="bg-white p-6 rounded-lg shadow-sm border">
-      <h2 class="text-xl font-semibold mb-4 text-green-700">Status Updates</h2>
-      <% @job.results.each do |result| %>
-        <div class="mb-4 pb-2 border-b last:border-0">
-          <p class="font-medium text-gray-800"><%= result.status %></p>
-          <p class="text-sm text-gray-500"><%= result.date.strftime("%b %d, %Y") %></p>
-          <p class="text-sm mt-1 text-gray-600"><%= result.notes %></p>
-        </div>
-      <% end %>
-      <%= link_to "+ Add Result",
-      new_result_path(job_id: @job.id),
-      class: "text-sm text-green-600 hover:underline" %>
+    <%# Timeline Section %>
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Timeline & Results</h2>
+        <%= link_to "+ Add Event", new_result_path(job_id: @job.id), class: "bg-black text-white px-4 py-2 rounded-lg text-sm" %>
+      </div>
+      <div class="relative border-l-2 border-gray-100 ml-4 pl-8 space-y-8">
+        <% @job.results.each do |result| %>
+          <div class="relative">
+            <div class="absolute -left-[41px] bg-blue-100 p-2 rounded-lg text-blue-600">📅</div>
+            <h3 class="font-bold"><%= result.status %></h3>
+            <p class="text-xs text-gray-400"><%= result.date %></p>
+            <p class="text-sm text-gray-600 mt-1"><%= result.notes %></p>
+          </div>
+        <% end %>
+      </div>
     </section>
-
-  </div>
-
-  <div class="mt-8 flex gap-4">
-    <%= link_to "Edit Job",
-    edit_job_path(@job),
-    class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    <%= link_to "Back to Jobs",
-    jobs_path,
-    class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
   </div>
 </div>
