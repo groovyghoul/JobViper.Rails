@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job: one
+  date: 2026-01-22
+  contact_type: MyString
+  person: MyString
+  notes: MyText
+
+two:
+  job: two
+  date: 2026-01-22
+  contact_type: MyString
+  person: MyString
+  notes: MyText
