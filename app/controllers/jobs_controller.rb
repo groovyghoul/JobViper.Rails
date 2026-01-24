@@ -4,6 +4,10 @@ class JobsController < ApplicationController
   # GET /jobs or /jobs.json
   def index
     @jobs = Job.includes(:contacts, :events).order(created_at: :desc)
+    if params[:filter] == "hide_rejected"
+      # Adjust 'Rejected' to match exactly how you store it in your DB
+      @jobs = @jobs.where.not(status: [ "Rejected", "rejected", "Declined", "declined" ])
+    end
     # @jobs = Job.all
 
     # Logic for stats
