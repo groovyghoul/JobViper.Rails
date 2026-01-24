@@ -72,9 +72,10 @@
   <%# Form Actions %>
   <div class="flex justify-end gap-4 mt-10">
     <%= link_to "Cancel",
-    jobs_path,
+    @job.persisted? ? job_path(@job) : jobs_path,
     class:
       "px-8 py-3 rounded-xl font-bold border border-[#E2E8F0] text-[#64748B] hover:bg-gray-50 transition-all" %>
+
     <%= form.submit "Save Application",
                 class:
                   "px-8 py-3 rounded-xl font-bold bg-[#020617] text-white hover:bg-black cursor-pointer shadow-sm transition-all" %>
