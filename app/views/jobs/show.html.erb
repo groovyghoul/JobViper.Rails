@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-[#F8FAFC] p-8 md:p-12">
   <div class="max-w-7xl mx-auto">
-
     <%# Back Navigation %>
     <%= link_to jobs_path, class: "flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] mb-6 transition-all group" do %>
       <svg
@@ -38,9 +37,7 @@
             </span>
           </div>
           <p class="text-xl text-[#64748B] mb-8"><%= @job.company %></p>
-
           <div class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-8 text-[#64748B]">
-            <%# Location %>
             <div class="flex items-center gap-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -54,10 +51,8 @@
                 stroke-linejoin="round"
                 class="text-[#94A3B8]"
               ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span class="text-[17px]"><%= @job.location %></span>
+              <span><%= @job.location %></span>
             </div>
-
-            <%# Date Applied %>
             <div class="flex items-center gap-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,11 +66,9 @@
                 stroke-linejoin="round"
                 class="text-[#94A3B8]"
               ><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x1="16" y1="2" y2="6"/><line x1="8" x1="8" y1="2" y2="6"/><line x1="3" x1="10" y1="10" y2="10"/></svg>
-              <span class="text-[17px]">Applied
+              <span>Applied
                 <%= @job.applied_date.strftime("%Y-%m-%d") %></span>
             </div>
-
-            <%# Salary Range %>
             <div class="flex items-center gap-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,150 +82,52 @@
                 stroke-linejoin="round"
                 class="text-[#94A3B8]"
               ><line x1="12" x1="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span class="text-[17px] font-semibold text-[#475569]"><%= @job.salary.present? ? @job.salary : "Not specified" %></span>
+              <span class="font-semibold text-[#475569]"><%= @job.salary.present? ? @job.salary : "Not specified" %></span>
             </div>
           </div>
-
           <div class="mt-8">
-            <h4 class="flex items-center gap-2 text-[#0F172A] font-bold mb-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-[#94A3B8]"
-              ><path
-                  d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
-                /><polyline points="14 2 14 8 20 8"/></svg>
-              Description
-            </h4>
+            <h4 class="flex items-center gap-2 text-[#0F172A] font-bold mb-3 italic">Description</h4>
             <p class="text-[#64748B] leading-relaxed"><%= @job.description %></p>
           </div>
         </div>
-
-        <%= link_to edit_job_path(@job), class: "flex items-center gap-2 bg-[#0F172A] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-black transition-all" do %>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-          Edit
-        <% end %>
+        <%= link_to edit_job_path(@job), class: "bg-[#0F172A] text-white px-4 py-2 rounded-xl text-sm font-bold" do %>Edit<% end %>
       </div>
     </div>
 
-    <%# Lower Grid: Contacts & Timeline %>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
       <%# Contacts Column %>
       <div class="bg-white border border-[#F1F5F9] rounded-[24px] p-8 shadow-sm">
         <div class="flex justify-between items-center mb-8">
           <h3 class="text-2xl font-bold text-[#0F172A]">Contacts</h3>
-          <button
-            class="
-              bg-black text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center
-              gap-2
-            "
-          >
-            <span class="text-lg">+</span>
-            Add Contact
-          </button>
+          <%= link_to new_job_contact_path(@job), data: { turbo_frame: "modal" }, class: "bg-black text-white px-4 py-2 rounded-xl text-sm font-bold" do %>
+            + Add Contact
+          <% end %>
         </div>
 
-        <%# Example Contact Card - This will eventually be a loop %>
-        <div class="border border-[#F1F5F9] rounded-2xl p-6 mb-4 relative group">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <p class="font-bold text-[#0F172A]">Jane Doe</p>
-              <p class="text-sm text-[#64748B]">Senior Recruiter</p>
-            </div>
-            <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <button class="text-[#94A3B8] hover:text-[#0F172A]">✎</button>
-              <button class="text-[#94A3B8] hover:text-red-500">🗑</button>
-            </div>
-          </div>
-          <p class="text-sm text-[#64748B] flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            jane.doe@company.com
-          </p>
+        <div class="space-y-4">
+          <% if @job.contacts.any? %>
+            <% @job.contacts.each do |contact| %>
+              <div class="border border-[#F1F5F9] rounded-2xl p-6 relative group">
+                <p class="font-bold text-[#0F172A]"><%= contact.name %></p>
+                <p class="text-sm text-[#64748B]"><%= contact.role %></p>
+                <p class="text-sm text-[#94A3B8] mt-2 italic"><%= contact.email %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-center text-gray-400 py-4 italic">No contacts yet.</p>
+          <% end %>
         </div>
       </div>
 
-      <%# Timeline Column %>
-      <div class="bg-white border border-[#F1F5F9] rounded-[24px] p-8 shadow-sm">
-        <div class="flex justify-between items-center mb-8">
-          <h3 class="text-2xl font-bold text-[#0F172A]">Timeline & Results</h3>
-          <button
-            class="
-              bg-black text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center
-              gap-2
-            "
-          >
-            <span class="text-lg">+</span>
-            Add Event
-          </button>
-        </div>
-
-        <div
-          class="
-            space-y-6 relative before:absolute before:inset-0 before:ml-5
-            before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b
-            before:from-transparent before:via-[#E2E8F0] before:to-transparent
-          "
-        >
-          <%# Timeline Item %>
-          <div class="relative flex items-center justify-between group pl-12">
-            <div
-              class="
-                absolute left-0 grid place-items-center w-10 h-10 bg-blue-50 text-blue-600
-                rounded-full border-4 border-white shadow-sm
-              "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x1="16" y1="2" y2="6"/><line x1="8" x1="8" y1="2" y2="6"/><line x1="3" x1="10" y1="10" y2="10"/></svg>
-            </div>
-            <div>
-              <p class="font-bold text-[#0F172A]">Phone Screen</p>
-              <p class="text-xs text-[#94A3B8]">2026-01-22</p>
-            </div>
-            <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <button class="text-[#94A3B8] hover:text-[#0F172A]">✎</button>
-              <button class="text-[#94A3B8] hover:text-red-500">🗑</button>
-            </div>
-          </div>
-        </div>
+      <%# Timeline Placeholder %>
+      <div
+        class="
+          bg-white border border-[#F1F5F9] rounded-[24px] p-8 shadow-sm text-center italic
+          text-gray-400
+        "
+      >
+        Timeline logic coming next!
       </div>
-
     </div>
   </div>
 </div>

@@ -1,70 +1,30 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: %i[ show edit update destroy ]
+  before_action :set_job
 
-  # GET /contacts or /contacts.json
-  def index
-    @contacts = Contact.all
-  end
-
-  # GET /contacts/1 or /contacts/1.json
-  def show
-  end
-
-  # GET /contacts/new
   def new
-    @contact = Contact.new
+    @contact = @job.contacts.new
+    render layout: false
   end
 
-  # GET /contacts/1/edit
-  def edit
-  end
-
-  # POST /contacts or /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    @contact = @job.contacts.new(contact_params)
 
-    respond_to do |format|
-      if @contact.save
-        format.html { redirect_to job_path(@contact.job_id), notice: "Contact was added." }
-        format.json { render :show, status: :created, location: @contact }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /contacts/1 or /contacts/1.json
-  def update
-    respond_to do |format|
-      if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: "Contact was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @contact }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /contacts/1 or /contacts/1.json
-  def destroy
-    @contact.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to contacts_path, notice: "Contact was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+    if @contact.save
+      # status: :see_other tells Turbo to redirect the whole page
+      redirect_to job_path(@job), status: :see_other, notice: "Contact added!"
+    else
+      # If validation fails, stay in the frame but don't render the full application layout
+      render :new, status: :unprocessable_entity, layout: false
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = Contact.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def contact_params
-      params.expect(contact: [ :job_id, :date, :contact_type, :person, :notes ])
-    end
+  def set_job
+    @job = Job.find(params[:job_id])
+  end
+
+  def contact_params
+    params.require(:contact).permit(:name, :email, :role)
+  end
 end
