@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   before_action :set_job
+  before_action :set_contact, only: [ :edit, :update, :destroy ]
 
   def new
     @contact = @job.contacts.new
@@ -8,20 +9,38 @@ class ContactsController < ApplicationController
 
   def create
     @contact = @job.contacts.new(contact_params)
-
     if @contact.save
-      # status: :see_other tells Turbo to redirect the whole page
       redirect_to job_path(@job), status: :see_other, notice: "Contact added!"
     else
-      # If validation fails, stay in the frame but don't render the full application layout
       render :new, status: :unprocessable_entity, layout: false
     end
+  end
+
+  def edit
+    render layout: false
+  end
+
+  def update
+    if @contact.update(contact_params)
+      redirect_to job_path(@job), status: :see_other, notice: "Contact updated!"
+    else
+      render :edit, status: :unprocessable_entity, layout: false
+    end
+  end
+
+  def destroy
+    @contact.destroy
+    redirect_to job_path(@job), status: :see_other, notice: "Contact removed."
   end
 
   private
 
   def set_job
     @job = Job.find(params[:job_id])
+  end
+
+  def set_contact
+    @contact = @job.contacts.find(params[:id])
   end
 
   def contact_params
