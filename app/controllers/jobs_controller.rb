@@ -3,7 +3,8 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    @jobs = Job.all
+    @jobs = Job.includes(:contacts, :events).order(created_at: :desc)
+    # @jobs = Job.all
 
     # Logic for stats
     @total_count = @jobs.count

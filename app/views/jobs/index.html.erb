@@ -1,19 +1,44 @@
-<div class="min-h-screen bg-[#F8FAFC] p-10">
+<div class="min-h-screen bg-[#F8FAFC] p-8 md:p-12">
   <div class="max-w-7xl mx-auto">
 
     <%# Header Section %>
-    <div class="flex justify-between items-center mb-10">
-      <div>
-        <h1 class="text-[40px] font-bold text-[#0F172A] leading-tight">JobViper</h1>
-        <p class="text-[#64748B] text-lg mt-1">Track your job applications and progress</p>
+    <div
+      class="
+        flex flex-col md:flex-row justify-between items-start md:items-center mb-10
+        gap-6
+      "
+    >
+      <div class="flex items-center gap-4">
+        <div
+          class="
+            w-12 h-12 bg-[#0F172A] rounded-2xl flex items-center justify-center shadow-xl
+            shadow-slate-200
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+        </div>
+        <div>
+          <h1 class="text-4xl font-black text-[#0F172A] tracking-tight">JobViper</h1>
+          <p class="text-[#64748B] font-medium">Tracking
+            <%= pluralize(@jobs.count, "active opportunity") %></p>
+        </div>
       </div>
 
-      <div class="flex items-center gap-4">
-        <%# Toggle Buttons %>
+      <div class="flex items-center gap-4 w-full md:w-auto">
+        <%# Layout Toggle %>
         <div class="flex bg-white border border-[#E2E8F0] rounded-xl p-1 shadow-sm">
-          <%# Grid Button %>
           <%= link_to jobs_path(view: 'grid'), 
-      class: "p-2.5 rounded-lg transition-all #{params[:view] != 'list' ? 'bg-[#1E293B] text-white shadow-sm' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
+              class: "p-2.5 rounded-lg transition-all #{params[:view] != 'list' ? 'bg-[#F1F5F9] text-[#0F172A]' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -27,9 +52,8 @@
             ><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
           <% end %>
 
-          <%# List Button %>
           <%= link_to jobs_path(view: 'list'), 
-      class: "p-2.5 rounded-lg transition-all #{params[:view] == 'list' ? 'bg-[#1E293B] text-white shadow-sm' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
+              class: "p-2.5 rounded-lg transition-all #{params[:view] == 'list' ? 'bg-[#F1F5F9] text-[#0F172A]' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -37,16 +61,15 @@
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2.5"
+              stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             ><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
           <% end %>
         </div>
 
-        <%# New Application Button %>
-        <%= link_to new_job_path, class: "bg-[#020617] text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 hover:bg-black transition-all shadow-sm" do %>
-          <span class="text-2xl font-light">+</span>
+        <%= link_to new_job_path, class: "flex-grow md:flex-grow-0 bg-[#020617] text-white px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-lg shadow-slate-200" do %>
+          <span class="text-xl font-light">+</span>
           New Application
         <% end %>
       </div>
@@ -62,32 +85,59 @@
         <table class="w-full text-left border-collapse">
           <thead class="bg-[#F8FAFC] border-b border-[#F1F5F9]">
             <tr>
-              <th class="p-6 font-bold text-[#0F172A]">Position</th>
-              <th class="p-6 font-bold text-[#0F172A]">Company</th>
-              <th class="p-6 font-bold text-[#0F172A]">Status</th>
-              <th class="p-6 font-bold text-[#0F172A]">Applied Date</th>
+              <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Position</th>
+              <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Status</th>
+              <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Contacts</th>
+              <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Applied</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="divide-y divide-[#F1F5F9]">
             <% @jobs.each do |job| %>
               <tr
                 class="
-                  border-b border-[#F1F5F9] hover:bg-[#F8FAFC] transition-colors cursor-pointer
+                  hover:bg-[#F8FAFC] transition-colors cursor-pointer group
                 "
                 onclick="window.location='<%= job_path(job) %>'"
               >
-                <td class="p-6 text-[#0F172A] font-semibold"><%= job.title %></td>
-                <td class="p-6 text-[#64748B]"><%= job.company %></td>
+                <td class="p-6">
+                  <div
+                    class="
+                      font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors
+                    "
+                  ><%= job.title %></div>
+                  <div class="text-sm text-[#64748B] font-medium"><%= job.company %></div>
+                </td>
                 <td class="p-6">
                   <span
                     class="
-                      bg-[#3B82F6] text-white text-[10px] font-black uppercase px-2 py-1 rounded-md
+                      text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg
+                      <%= case job.status.downcase
+                        when 'offered', 'accepted' then 'bg-emerald-100 text-emerald-700'
+                        when 'rejected', 'declined' then 'bg-rose-100 text-rose-700'
+                        when 'interviewing' then 'bg-amber-100 text-amber-700'
+                        else 'bg-blue-100 text-blue-700'
+                        end %>
                     "
                   >
                     <%= job.status %>
                   </span>
                 </td>
-                <td class="p-6 text-[#64748B]"><%= job.applied_date.strftime("%Y-%m-%d") %></td>
+                <td class="p-6 text-[#64748B]">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="
+                        w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs
+                        font-bold text-slate-500
+                      "
+                    >
+                      <%= job.contacts.count %>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-6 text-[#94A3B8] text-sm font-medium">
+                  <%= time_ago_in_words(job.applied_date) %>
+                  ago
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -95,90 +145,106 @@
       </div>
 
     <% else %>
-      <%# The Grid %>
+      <%# Grid View %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <% @jobs.each do |job| %>
-          <%= link_to job, class: "bg-white border border-[#F1F5F9] rounded-[32px] p-10 shadow-sm hover:shadow-md transition-all group flex flex-col min-h-[320px]" do %>
+          <%= link_to job, class: "bg-white border border-[#F1F5F9] rounded-[32px] p-8 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all group flex flex-col h-full" do %>
 
             <div class="flex justify-between items-start mb-6">
-              <div>
-                <h3 class="text-2xl font-bold text-[#0F172A] leading-tight"><%= job.title %></h3>
-                <p class="text-[#64748B] text-lg mt-1 font-medium"><%= job.company %></p>
-              </div>
-
-              <%# Figma Styled Badge %>
               <span
                 class="
-                  bg-[#3B82F6] text-white text-[10px] font-black uppercase tracking-[0.05em] px-3
-                  py-1.5 rounded-lg shadow-sm
+                  text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full
+                  <%= case job.status.downcase
+                    when 'offered', 'accepted' then 'bg-emerald-100 text-emerald-700'
+                    when 'rejected', 'declined' then 'bg-rose-100 text-rose-700'
+                    when 'interviewing' then 'bg-amber-100 text-amber-700'
+                    else 'bg-blue-100 text-blue-700'
+                    end %>
                 "
               >
                 <%= job.status %>
               </span>
+              <div class="text-[#94A3B8] text-[11px] font-bold uppercase tracking-tight">
+                <%= job.applied_date.strftime("%b %d") %>
+              </div>
             </div>
 
-            <%# Icon List Section %>
-            <div class="space-y-4 text-[#64748B] mb-8">
-              <div class="flex items-center gap-3">
+            <div class="flex-grow mb-8">
+              <h3
+                class="
+                  text-2xl font-bold text-[#0F172A] leading-tight group-hover:text-blue-600
+                  transition-colors
+                "
+              ><%= job.title %></h3>
+              <p class="text-[#64748B] text-lg mt-1 font-medium"><%= job.company %></p>
+
+              <div class="mt-6 flex items-center gap-2 text-[#94A3B8]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-[#94A3B8]"
                 ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span class="text-[15px]"><%= job.location %></span>
+                <span class="text-sm font-medium"><%= job.location %></span>
               </div>
+            </div>
 
-              <div class="flex items-center gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="text-[#94A3B8]"
-                ><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x1="16" y1="2" y2="6"/><line x1="8" x1="8" y1="2" y2="6"/><line x1="3" x1="10" y1="10" y2="10"/></svg>
-                <span class="text-[15px]">Applied
-                  <%= job.applied_date.strftime("%Y-%m-%d") %></span>
-              </div>
-
-              <% if job.salary.present? %>
-                <div class="flex items-center gap-3">
+            <%# Card Footer Stats %>
+            <div
+              class="
+                pt-6 border-t border-slate-50 flex justify-between items-center mt-auto
+              "
+            >
+              <div class="flex gap-4">
+                <div class="flex items-center gap-1.5" title="Contacts">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="#94A3B8"
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    class="text-[#94A3B8]"
-                  ><line x1="12" x1="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                  <span class="text-[15px] font-medium text-[#475569]"><%= job.salary %></span>
+                  ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  <span class="font-bold text-[#475569] text-sm"><%= job.contacts.count %></span>
                 </div>
-              <% end %>
-            </div>
-
-            <div class="mt-auto">
-              <p
+                <div class="flex items-center gap-1.5" title="Events">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#94A3B8"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span class="font-bold text-[#475569] text-sm"><%= job.events.count %></span>
+                </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 class="
-                  text-[#94A3B8] text-[15px] leading-relaxed line-clamp-2 italic font-light
+                  text-slate-200 group-hover:text-blue-500 group-hover:translate-x-1
+                  transition-all
                 "
-              >
-                <%= job.description %>
-              </p>
+              ><path d="m9 18 6-6-6-6"/></svg>
             </div>
           <% end %>
         <% end %>
