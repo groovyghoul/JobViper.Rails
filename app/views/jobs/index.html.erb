@@ -127,6 +127,7 @@
               <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Position</th>
               <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Status</th>
               <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Contacts</th>
+              <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Events</th>
               <th class="p-6 font-bold text-[#0F172A] text-sm uppercase tracking-wider">Applied</th>
             </tr>
           </thead>
@@ -170,6 +171,18 @@
                       "
                     >
                       <%= job.contacts.count %>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-6 text-[#64748B]">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="
+                        w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs
+                        font-bold text-slate-500
+                      "
+                    >
+                      <%= job.events.count %>
                     </div>
                   </div>
                 </td>
