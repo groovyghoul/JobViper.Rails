@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_24_003654) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_24_011113) do
   create_table "contacts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -19,6 +19,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_003654) do
     t.string "role"
     t.datetime "updated_at", null: false
     t.index ["job_id"], name: "index_contacts_on_job_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "event_date"
+    t.string "event_type"
+    t.integer "job_id", null: false
+    t.text "notes"
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_events_on_job_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -34,16 +44,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_003654) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "results", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.date "date"
-    t.integer "job_id", null: false
-    t.text "notes"
-    t.string "status"
-    t.datetime "updated_at", null: false
-    t.index ["job_id"], name: "index_results_on_job_id"
-  end
-
   add_foreign_key "contacts", "jobs"
-  add_foreign_key "results", "jobs"
+  add_foreign_key "events", "jobs"
 end
