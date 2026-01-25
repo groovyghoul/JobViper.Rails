@@ -124,6 +124,26 @@
             </div>
           </div>
         </div>
+        <%= button_to archive_job_path(@job), method: :patch, 
+      class: "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold border transition-all 
+      #{@job.archived ? 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100' : 'bg-white text-[#64748B] border-[#E2E8F0] hover:bg-slate-50'}" do %>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m7.5 4.27 9 5.15"/><path
+              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+            /><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
+          </svg>
+          <%= @job.archived ? "Unarchive" : "Archive" %>
+        <% end %>
         <%= link_to edit_job_path(@job), class: "bg-[#0F172A] text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-black transition-all shadow-lg shadow-slate-200" do %>
           <svg
             xmlns="http://www.w3.org/2000/svg"

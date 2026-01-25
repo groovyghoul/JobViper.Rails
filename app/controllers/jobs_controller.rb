@@ -3,7 +3,13 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    @jobs = Job.includes(:contacts, :events).order(created_at: :desc)
+    @jobs = Job.where(archived: false).includes(:contacts, :events).order(created_at: :desc)
+
+    # not wired up yet, but you can use ?view_archived=true to see the items that are currently archived
+    if params[:view_archived] == "true"
+      @jobs = Job.where(archived: true).includes(:contacts, :events).order(created_at: :desc)
+    end
+
     if params[:filter] == "hide_rejected"
       # Adjust 'Rejected' to match exactly how you store it in your DB
       @jobs = @jobs.where.not(status: [ "Rejected", "rejected", "Declined", "declined" ])
@@ -69,6 +75,14 @@ class JobsController < ApplicationController
       format.html { redirect_to jobs_path, notice: "Job was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
+  end
+
+  def archive
+    @job = Job.find(params[:id])
+    @job.update(archived: !@job.archived) # Toggles the status
+
+    message = @job.archived ? "Job was successfully archived." : "Job was moved back to active."
+    redirect_to job_path(@job), notice: message
   end
 
   private

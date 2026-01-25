@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resources :jobs do
+    member do
+      patch :archive
+    end
+
     resources :contacts
     resources :events
   end
