@@ -2,12 +2,12 @@
 
 one:
   job: one
-  date: 2026-01-22
-  status: MyString
+  event_date: 2026-01-22
+  event_type: Interview
   notes: MyText
 
 two:
   job: two
-  date: 2026-01-22
-  status: MyString
+  event_date: 2026-01-23
+  event_type: Screen
   notes: MyText

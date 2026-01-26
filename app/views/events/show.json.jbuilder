@@ -1,1 +1,1 @@
-json.partial! "results/result", result: @result
+json.partial! "events/event", event: @event
