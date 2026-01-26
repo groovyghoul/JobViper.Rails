@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   before_action :set_job
-  before_action :set_contact, opacity: [ :edit, :update, :destroy ]
+  before_action :set_contact, only: [ :edit, :update, :destroy ]
 
   def new
     @contact = @job.contacts.new

@@ -2,14 +2,12 @@
 
 one:
   job: one
-  date: 2026-01-22
-  contact_type: MyString
-  person: MyString
-  notes: MyText
+  name: Jane Recruiter
+  email: jane@example.com
+  role: Recruiter
 
 two:
   job: two
-  date: 2026-01-22
-  contact_type: MyString
-  person: MyString
-  notes: MyText
+  name: Sam HiringManager
+  email: sam@example.com
+  role: Hiring Manager

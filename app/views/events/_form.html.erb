@@ -1,14 +1,14 @@
-<%= form_with(model: result, class: "contents") do |form| %>
-  <% if result.errors.any? %>
+<%= form_with(model: event, class: "contents") do |form| %>
+  <% if event.errors.any? %>
     <div
       id="error_explanation"
       class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3"
     >
-      <h2><%= pluralize(result.errors.count, "error") %>
-        prohibited this result from being saved:</h2>
+      <h2><%= pluralize(event.errors.count, "error") %>
+        prohibited this event from being saved:</h2>
 
       <ul class="list-disc ml-6">
-        <% result.errors.each do |error| %>
+        <% event.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -16,9 +16,9 @@
   <% end %>
 
   <%# Pass the job_id silently if we have it %>
-  <%= form.hidden_field :job_id, value: params[:job_id] || result.job_id %>
+  <%= form.hidden_field :job_id, value: params[:job_id] || event.job_id %>
 
-  <% if result.job_id || params[:job_id] %>
+  <% if event.job_id || params[:job_id] %>
     <div
       class="
         my-5 p-3 bg-gray-50 rounded-md border border-dashed border-gray-300
@@ -26,7 +26,7 @@
     >
       <p class="text-sm text-gray-600">
         Recording result for:
-        <span class="font-bold text-gray-900"><%= Job.find(params[:job_id] || result.job_id).company %></span>
+        <span class="font-bold text-gray-900"><%= Job.find(params[:job_id] || event.job_id).company %></span>
       </p>
     </div>
   <% else %>
@@ -45,18 +45,24 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :date %>
-    <%= form.date_field :date,
-                    value: (form.object.date || Date.today),
+    <%= form.label :event_date %>
+    <%= form.date_field :event_date,
+                    value: (form.object.event_date || Date.today),
                     class:
                       "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full border-gray-400 focus:outline-blue-600" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :status %>
-    <%= form.select :status,
-                %w[Interested Applied Interviewing Offer Rejected Ghosted],
-                { prompt: "-- Select status --" },
+    <%= form.label :event_type %>
+    <%= form.select :event_type,
+                [
+                  "Phone Screen",
+                  "Technical Interview",
+                  "Onsite",
+                  "Offer",
+                  "Rejection",
+                ],
+                { prompt: "-- Select event type --" },
                 {
                   class:
                     "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full border-gray-400 focus:outline-blue-600",
@@ -71,9 +77,9 @@
                     "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
                     {
                       "border-gray-400 focus:outline-blue-600":
-                        result.errors[:notes].none?,
+                        event.errors[:notes].none?,
                       "border-red-400 focus:outline-red-600":
-                        result.errors[:notes].any?,
+                        event.errors[:notes].any?,
                     },
                   ] %>
   </div>

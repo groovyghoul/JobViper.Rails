@@ -1,2 +1,2 @@
-json.extract! event, :id, :job_id, :date, :status, :notes, :created_at, :updated_at
-json.url event_url(event, format: :json)
+json.extract! event, :id, :job_id, :event_date, :event_type, :notes, :created_at, :updated_at
+json.url job_event_url(event.job, event, format: :json)

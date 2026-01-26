@@ -3,46 +3,37 @@ require "test_helper"
 class ContactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @contact = contacts(:one)
-  end
-
-  test "should get index" do
-    get contacts_url
-    assert_response :success
+    @job = jobs(:one)
   end
 
   test "should get new" do
-    get new_contact_url
+    get new_job_contact_url(@job)
     assert_response :success
   end
 
   test "should create contact" do
     assert_difference("Contact.count") do
-      post contacts_url, params: { contact: { contact_type: @contact.contact_type, date: @contact.date, job_id: @contact.job_id, notes: @contact.notes, person: @contact.person } }
+      post job_contacts_url(@job), params: { contact: { name: "New Person", email: "new@example.com", role: "Recruiter" } }
     end
 
-    assert_redirected_to contact_url(Contact.last)
-  end
-
-  test "should show contact" do
-    get contact_url(@contact)
-    assert_response :success
+    assert_redirected_to job_url(@job)
   end
 
   test "should get edit" do
-    get edit_contact_url(@contact)
+    get edit_job_contact_url(@job, @contact)
     assert_response :success
   end
 
   test "should update contact" do
-    patch contact_url(@contact), params: { contact: { contact_type: @contact.contact_type, date: @contact.date, job_id: @contact.job_id, notes: @contact.notes, person: @contact.person } }
-    assert_redirected_to contact_url(@contact)
+    patch job_contact_url(@job, @contact), params: { contact: { name: "Updated", email: "updated@example.com", role: "HR" } }
+    assert_redirected_to job_url(@job)
   end
 
   test "should destroy contact" do
     assert_difference("Contact.count", -1) do
-      delete contact_url(@contact)
+      delete job_contact_url(@job, @contact)
     end
 
-    assert_redirected_to contacts_url
+    assert_redirected_to job_url(@job)
   end
 end
