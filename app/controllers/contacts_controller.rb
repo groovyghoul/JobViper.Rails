@@ -9,6 +9,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact = @job.contacts.new(contact_params)
+    @contact.role = contact_role_param
     if @contact.save
       redirect_to job_path(@job), status: :see_other, notice: "Contact added!"
     else
@@ -21,7 +22,9 @@ class ContactsController < ApplicationController
   end
 
   def update
-    if @contact.update(contact_params)
+    @contact.assign_attributes(contact_params)
+    @contact.role = contact_role_param
+    if @contact.save
       redirect_to job_path(@job), status: :see_other, notice: "Contact updated!"
     else
       render :edit, status: :unprocessable_entity, layout: false
@@ -44,6 +47,10 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:name, :email, :role)
+    params.require(:contact).permit(:name, :email)
+  end
+
+  def contact_role_param
+    params.require(:contact).fetch(:role, nil)
   end
 end
