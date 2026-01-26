@@ -15,17 +15,7 @@
             shadow-slate-200
           "
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+          <%= icon_logo(width: 24, height: 24, stroke: "white", stroke_width: 3) %>
         </div>
         <div>
           <h1 class="text-4xl font-black text-[#0F172A] tracking-tight">JobViper</h1>
@@ -41,33 +31,13 @@
             <% if params[:filter] == 'hide_rejected' %>
               <%= link_to jobs_path(view: params[:view]), 
           class: "flex items-center gap-2 text-sm font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-xl border border-blue-100 transition-all" do %>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <%= icon_eye(width: 16, height: 16, stroke_width: 2.5) %>
                 Showing Active
               <% end %>
             <% else %>
               <%= link_to jobs_path(view: params[:view], filter: 'hide_rejected'), 
           class: "flex items-center gap-2 text-sm font-bold text-[#64748B] hover:text-[#0F172A] bg-white border border-[#E2E8F0] px-4 py-2 rounded-xl shadow-sm transition-all" do %>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M9.88 9.88 3.59 3.59"/><path d="m21 21-6.11-6.11"/><path d="M2 12s3-7 10-7a9.77 9.77 0 0 1 5 1.36"/><path d="M22 12s-3 7-10 7a9.77 9.77 0 0 1-5-1.36"/><path d="m15 9.17a3 3 0 1 0-4.17 4.17"/></svg>
+                <%= icon_eye_off(width: 16, height: 16, stroke_width: 2) %>
                 Hide Rejected
               <% end %>
             <% end %>
@@ -77,32 +47,12 @@
           <div class="flex bg-white border border-[#E2E8F0] rounded-xl p-1 shadow-sm">
             <%= link_to jobs_path(view: 'grid', filter: params[:filter]), 
         class: "p-2.5 rounded-lg transition-all #{params[:view] != 'list' ? 'bg-[#F1F5F9] text-[#0F172A]' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              <%= icon_grid(width: 20, height: 20, stroke_width: 2) %>
             <% end %>
 
             <%= link_to jobs_path(view: 'list', filter: params[:filter]), 
         class: "p-2.5 rounded-lg transition-all #{params[:view] == 'list' ? 'bg-[#F1F5F9] text-[#0F172A]' : 'text-[#94A3B8] hover:text-[#64748B]'}" do %>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <%= icon_list(width: 20, height: 20, stroke_width: 2) %>
             <% end %>
           </div>
         </div>
@@ -231,17 +181,7 @@
               <p class="text-[#64748B] text-lg mt-1 font-medium"><%= job.company %></p>
 
               <div class="mt-6 flex items-center gap-2 text-[#94A3B8]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <%= icon_pin(width: 16, height: 16, stroke_width: 2) %>
                 <span class="text-sm font-medium"><%= job.location %></span>
               </div>
             </div>
@@ -254,49 +194,15 @@
             >
               <div class="flex gap-4">
                 <div class="flex items-center gap-1.5" title="Contacts">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#94A3B8"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  <%= icon_user(width: 16, height: 16, stroke: "#94A3B8", stroke_width: 2) %>
                   <span class="font-bold text-[#475569] text-sm"><%= job.contacts.count %></span>
                 </div>
                 <div class="flex items-center gap-1.5" title="Events">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#94A3B8"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <%= icon_clock(width: 16, height: 16, stroke: "#94A3B8", stroke_width: 2) %>
                   <span class="font-bold text-[#475569] text-sm"><%= job.events.count %></span>
                 </div>
               </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="
-                  text-slate-200 group-hover:text-blue-500 group-hover:translate-x-1
-                  transition-all
-                "
-              ><path d="m9 18 6-6-6-6"/></svg>
+              <%= icon_chevron_right(width: 20, height: 20, stroke_width: 2, classes: "text-slate-200 group-hover:text-blue-500 group-hover:translate-x-1 transition-all") %>
             </div>
           <% end %>
         <% end %>
