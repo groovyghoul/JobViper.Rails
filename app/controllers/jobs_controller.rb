@@ -3,26 +3,26 @@ class JobsController < ApplicationController
 
   # GET /jobs or /jobs.json
   def index
-    @jobs = Job.where(archived: false).includes(:contacts, :events).order(created_at: :desc)
+    jobs = Job.includes(:contacts, :events).order(created_at: :desc)
 
-    # not wired up yet, but you can use ?view_archived=true to see the items that are currently archived
-    if params[:view_archived] == "true"
-      @jobs = Job.where(archived: true).includes(:contacts, :events).order(created_at: :desc)
-    end
+    # Not wired up yet, but you can use ?view_archived=true to see the items that are currently archived.
+    archived = params[:view_archived] == "true"
+    jobs = jobs.where(archived: archived)
 
     if params[:filter] == "hide_rejected"
-      # Adjust 'Rejected' to match exactly how you store it in your DB
-      @jobs = @jobs.where.not(status: [ "Rejected", "rejected", "Declined", "declined" ])
+      # Adjust 'Rejected' to match exactly how you store it in your DB.
+      jobs = jobs.where.not(status: [ "Rejected", "rejected", "Declined", "declined" ])
     end
-    # @jobs = Job.all
+
+    @jobs = jobs
 
     # Logic for stats
     @total_count = @jobs.count
-    @interviewing_count = @jobs.where(status: "Interviewing").count
-    @offers_count = @jobs.where(status: "Offer Received").count
+    # @interviewing_count = @jobs.where(status: "Interviewing").count
+    # @offers_count = @jobs.where(status: "Offer Received").count
 
     # Calculate success rate (avoiding division by zero)
-    @success_rate = @total_count.positive? ? ((@offers_count.to_f / @total_count) * 100).round(1) : 0
+    # @success_rate = @total_count.positive? ? ((@offers_count.to_f / @total_count) * 100).round(1) : 0
   end
 
   # GET /jobs/1 or /jobs/1.json
