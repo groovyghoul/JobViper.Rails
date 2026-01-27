@@ -46,7 +46,7 @@ bin/rails test
 - Archived jobs: `/?view_archived=true` (TODO: add a button to the jobs page)
 - Hide rejected: `/?filter=hide_rejected` (already wired to a button on the jobs page)
 
-## Docker (production)
+## Docker (production -- NOTE: DO NOT USE THIS YET, NO AUTHENTICATION IN PLACE)
 Build:
 ```bash
 docker build -t job_viper .
