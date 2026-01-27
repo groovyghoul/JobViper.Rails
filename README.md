@@ -56,6 +56,3 @@ Run (requires the value from `config/master.key`):
 ```bash
 docker run -d -p 80:80 -e RAILS_MASTER_KEY=... --name job_viper job_viper
 ```
-
-## Screenshots
-Add screenshots here once ready.
