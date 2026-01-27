@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "devise", "~> 5.0"
+
+gem "letter_opener", group: :development
