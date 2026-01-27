@@ -11,7 +11,7 @@ and key events in the process.
 - Quick stats on active pipeline (total, interviewing, offers)
 
 ## Screencast
-[Watch a demo](docs/job-viper-demo.webm)
+[Watch a demo](docs/job-viper-demo.mp4)
 
 ## Requirements
 - Ruby 3.4.7 (see `.ruby-version`)
