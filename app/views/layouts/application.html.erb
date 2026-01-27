@@ -9,7 +9,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-[#F8FAFC] text-[#0F172A]">
+    <% if user_signed_in? %>
+      <div class="absolute top-6 right-6 z-10">
+        <%= button_to "Log out", destroy_user_session_path, method: :delete,
+          class: "rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50" %>
+      </div>
+    <% end %>
+
     <main>
       <%= yield %>
     </main>
