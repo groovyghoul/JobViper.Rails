@@ -4,6 +4,7 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @contact = contacts(:one)
     @job = jobs(:one)
+    sign_in users(:one)
   end
 
   test "should get new" do

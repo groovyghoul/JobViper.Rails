@@ -4,6 +4,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @event = events(:one)
     @job = jobs(:one)
+    sign_in users(:one)
   end
 
   test "should get new" do
