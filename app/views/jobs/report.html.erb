@@ -1,0 +1,40 @@
+<div class="p-8 max-w-4xl mx-auto">
+  <%# Navigation - Hidden on paper %>
+  <div class="print:hidden mb-8 flex justify-between items-center">
+    <%= link_to "← Back to Dashboard", jobs_path, class: "text-slate-600 hover:text-black" %>
+    <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">
+      Print
+    </button>
+  </div>
+
+  <header class="border-b-2 border-slate-900 pb-4 mb-8">
+    <h1 class="text-3xl font-bold text-slate-900">JobViper Report</h1>
+    <p class="text-slate-500">Generated on <%= Time.current.strftime("%B %d, %Y") %></p>
+  </header>
+
+  <section class="space-y-8">
+    <% @jobs.each do |job| %>
+      <div class="break-inside-avoid border-b border-slate-200 pb-6">
+        <div class="flex justify-between items-start">
+          <h2 class="text-xl font-bold"><%= job.company %>: <%= job.title %></h2>
+          <span class="text-sm font-mono px-2 py-1 bg-slate-100 rounded">
+            <%= job.status.humanize %>
+          </span>
+        </div>
+
+        <p class="text-sm text-slate-600 mt-2">Applied: <%= job.created_at.strftime("%Y-%m-%d") %></p>
+
+        <% if job.contacts.any? %>
+          <div class="mt-4">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Key Contacts</h4>
+            <ul class="text-sm mt-1">
+              <% job.contacts.each do |contact| %>
+                <li><%= contact.name %> (<%= contact.email %>)</li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</div>
