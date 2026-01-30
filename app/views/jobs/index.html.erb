@@ -43,6 +43,13 @@
             <% end %>
           </div>
 
+          <div class="flex items-center gap-2">
+            <%= link_to report_jobs_path, class: "flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 transition-all text-sm font-semibold text-slate-700" do %>
+              <%= icon_report(classes: "text-slate-600") %>
+              Report
+            <% end %>
+          </div>
+
           <%# Grid/List Toggle Buttons %>
           <div class="flex bg-white border border-[#E2E8F0] rounded-xl p-1 shadow-sm">
             <%= link_to jobs_path(view: 'grid', filter: params[:filter]), 

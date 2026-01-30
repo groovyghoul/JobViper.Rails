@@ -182,6 +182,17 @@ module IconHelper
     end
   end
 
+  def icon_report(width: 16, height: 16, stroke: "currentColor", stroke_width: 2, classes: nil)
+    icon_svg(width: width, height: height, stroke: stroke, stroke_width: stroke_width, classes: classes) do
+      safe_join([
+        tag.path(d: "M7 7h10"),
+        tag.path(d: "M7 12h10"),
+        tag.path(d: "M7 17h10"),
+        tag.rect(width: "18", height: "18", x: "3", y: "3", rx: "2")
+      ])
+    end
+  end
+
   def icon_archive(width: 16, height: 16, stroke: "currentColor", stroke_width: 2, classes: nil)
     icon_svg(width: width, height: height, stroke: stroke, stroke_width: stroke_width, classes: classes) do
       safe_join([

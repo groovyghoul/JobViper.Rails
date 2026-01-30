@@ -85,6 +85,15 @@ class JobsController < ApplicationController
     redirect_to job_path(@job), notice: message
   end
 
+  def report
+    # @jobs = current_user.jobs.includes(:contacts, :events).order(created_at: :desc)
+    @jobs = Job.includes(:contacts, :events).order(created_at: :desc)
+
+    respond_to do |format|
+      format.html # report.html.erb
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job

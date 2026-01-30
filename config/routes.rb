@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :jobs do
+    collection do
+      get :report
+    end
+
     member do
       patch :archive
     end
