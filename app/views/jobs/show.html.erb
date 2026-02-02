@@ -2,7 +2,12 @@
   <div class="max-w-7xl mx-auto">
     <%# Back Navigation %>
     <%= link_to jobs_path, class: "flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] mb-6 transition-all group" do %>
-      <%= icon_back(width: 20, height: 20, stroke_width: 2.5, classes: "group-hover:-translate-x-1 transition-transform") %>
+      <%= icon_back(
+        width: 20,
+        height: 20,
+        stroke_width: 2.5,
+        classes: "group-hover:-translate-x-1 transition-transform",
+      ) %>
       <span class="text-2xl font-bold text-[#0F172A]">Job Application Details</span>
     <% end %>
 
@@ -209,6 +214,54 @@
         </div>
       </div>
     </div>
+
+    <div class="mt-8 border-t pt-8">
+      <h3 class="text-xl font-bold mb-6">Files & Documents</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <% @job.attachments.each do |attachment| %>
+          <% if attachment.file.attached? %>
+            <div
+              class="
+                flex items-center justify-between p-4 bg-white dark:bg-slate-800 border
+                border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md
+                transition-shadow
+              "
+            >
+              <div class="flex items-center gap-4">
+                <%# Dynamic Icon based on Category %>
+                <div class="p-3 rounded-xl <%= category_color(attachment.category) %>">
+                  <%= category_icon(attachment.category) %>
+                </div>
+
+                <div>
+                  <p class="text-sm font-bold text-slate-900 dark:text-white">
+                    <%= attachment.category %>
+                  </p>
+                  <%= link_to rails_blob_path(attachment.file, disposition: :inline), 
+                    target:"_blank", rel:"noopener", class: "text-xs text-blue-600 hover:underline flex items-center gap-1" do %>
+                    <%= attachment.file.filename %>
+                    <%# TODO: move this into the icon_helper %>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
     <%# Danger Zone Section %>
     <div class=" mt-12 pt-8 border-t-2 border-dashed border-slate-200 ">
       <div

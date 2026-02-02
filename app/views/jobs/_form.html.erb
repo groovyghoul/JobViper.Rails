@@ -80,4 +80,31 @@
                 class:
                   "px-8 py-3 rounded-xl font-bold bg-[#020617] text-white hover:bg-black cursor-pointer shadow-sm transition-all" %>
   </div>
+
+  <div class="mt-8 border-t pt-8">
+    <h3 class="text-lg font-bold mb-4">Attachments & Tags</h3>
+
+    <%= form.fields_for :attachments, @job.attachments.build do |attachment_form| %>
+      <div class="flex gap-4 items-end mb-4 p-4 bg-slate-50 rounded-xl">
+        <div class="flex-1">
+          <%= attachment_form.label :file,
+                                "Select File",
+                                class:
+                                  "block text-xs font-bold uppercase text-slate-500 mb-1" %>
+          <%= attachment_form.file_field :file, class: "block w-full text-sm" %>
+        </div>
+
+        <div class="w-48">
+          <%= attachment_form.label :category,
+                                "Tag",
+                                class:
+                                  "block text-xs font-bold uppercase text-slate-500 mb-1" %>
+          <%= attachment_form.select :category,
+                                 Attachment::CATEGORIES,
+                                 {},
+                                 class: "w-full rounded-lg border-slate-300" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

@@ -100,8 +100,21 @@ class JobsController < ApplicationController
       @job = Job.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
-    def job_params
-      params.expect(job: [ :company, :title, :applied_date, :status, :source, :location, :salary, :description ])
-    end
+  # Only allow a list of trusted parameters through.
+  def job_params
+    params.require(:job).permit(:company, :title, :applied_date, :status, :source, :location, :salary, :description, attachments_attributes: [ :id, :file, :category, :_destroy ])
+  end
+  # def job_params
+  #   params.expect(job: [
+  #     :company,
+  #     :title,
+  #     :applied_date,
+  #     :status,
+  #     :source,
+  #     :location,
+  #     :salary,
+  #     :description,
+  #     attachments_attributes: [ :id, :file, :category, :_destroy ] # Add this nested array
+  #   ])
+  # end
 end
