@@ -9,13 +9,14 @@ and key events in the process.
 - Add timeline events (phone screen, interview, offer)
 - Archive and unarchive jobs
 - Quick stats on active pipeline (total, interviewing, offers)
+- Authentication (Local only, COMING SOON: 3rd-party OAUTH)
 
 ## Screencast
 https://github.com/user-attachments/assets/a66c3b49-1394-42ff-afaa-507517437730
 
 ## Requirements
 - Ruby 3.4.7 (see `.ruby-version`)
-- SQLite3
+- SQLite3 (this is a soft requirement; configuration can be set to use another database; TODO: instructions)
 
 ## Setup
 ```bash
@@ -45,14 +46,3 @@ bin/rails test
 - Active jobs: default on the index page
 - Archived jobs: `/?view_archived=true` (TODO: add a button to the jobs page)
 - Hide rejected: `/?filter=hide_rejected` (already wired to a button on the jobs page)
-
-## Docker (production -- NOTE: DO NOT USE THIS YET, NO AUTHENTICATION IN PLACE)
-Build:
-```bash
-docker build -t job_viper .
-```
-
-Run (requires the value from `config/master.key`):
-```bash
-docker run -d -p 80:80 -e RAILS_MASTER_KEY=... --name job_viper job_viper
-```
