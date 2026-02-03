@@ -10,6 +10,7 @@ and key events in the process.
 - Archive and unarchive jobs
 - Quick stats on active pipeline (total, interviewing, offers)
 - Authentication (Local only, COMING SOON: 3rd-party OAUTH)
+- Simple printable report of results
 
 ## Screencast
 https://github.com/user-attachments/assets/a66c3b49-1394-42ff-afaa-507517437730
